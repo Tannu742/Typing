@@ -1,0 +1,213 @@
+/* Global Styles for Light and Dark Mode */
+.App {
+  text-align: center;
+  padding: 50px;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Light Theme */
+.App.light {
+  background: linear-gradient(135deg, #a3c2f4, #f1f1f1);
+  color: #333;
+}
+
+/* Dark Theme */
+.App.dark {
+  background: linear-gradient(135deg, #333, #121212);
+  color: #fff;
+}
+
+/* Heading */
+h1 {
+  font-size: 3.5rem;
+  color: inherit;
+  text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+/* Typing Area Input */
+input[type="text"] {
+  font-size: 1.5rem;
+  padding: 15px 25px;
+  width: 75%;
+  border-radius: 25px;
+  border: 2px solid #6fa3e7;
+  background-color: #fff;
+  transition: background-color 0.3s, border-color 0.3s;
+  outline: none;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.App.dark input[type="text"] {
+  background-color: #333;
+  color: #fff;
+  border-color: #6fa3e7;
+}
+
+input[type="text"]:focus {
+  background-color: #f0f8ff;
+  border-color: #3b8cd9;
+}
+
+.App.dark input[type="text"]:focus {
+  background-color: #444;
+  border-color: #3b8cd9;
+}
+
+/* Text Display */
+p {
+  font-size: 1.8rem;
+  color: inherit;
+  font-weight: bold;
+  letter-spacing: 1px;
+  line-height: 1.7;
+  margin: 20px auto;
+  max-width: 80%;
+  font-family: 'Roboto', sans-serif;
+}
+
+span.correct {
+  color: #28a745;
+  font-weight: bold;
+}
+
+span.incorrect {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Button Styling */
+button {
+  background-color: #6fa3e7;
+  padding: 18px 35px;
+  font-size: 1.4rem;
+  border-radius: 35px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 30px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background-color: #5c8dc7;
+  transform: translateY(-2px);
+}
+
+.App.dark button {
+  background-color: #444;
+  color: #fff;
+}
+
+.App.dark button:hover {
+  background-color: #5c8dc7;
+  transform: translateY(-2px);
+}
+
+/* Timer Styling */
+.timer {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #dc3545;
+  margin-top: 30px;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Results Styling */
+.results {
+  background-color: #ffffffc7;
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.App.dark .results {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Pop-up Styling */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 35px;
+  border-radius: 25px;
+  text-align: center;
+  width: 75%;
+  max-width: 550px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.popup-content h2 {
+  font-size: 2rem;
+  color: #28a745;
+}
+
+.App.dark .popup-content {
+  background-color: #444;
+  color: #fff;
+}
+
+.App.dark .popup-content h2 {
+  color: #5eec59;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  border-radius: 35px;
+  background-color: #6fa3e7;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  z-index: 999;
+}
+
+.theme-toggle-btn:hover {
+  background-color: #5c8dc7;
+}
+
+.App.dark .theme-toggle-btn {
+  background-color: #444;
+  color: #fff;
+}
+
+.App.dark .theme-toggle-btn:hover {
+  background-color: #5c8dc7;
+}
+
+
