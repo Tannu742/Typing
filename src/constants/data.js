@@ -100,4 +100,37 @@ export const sentences = [
     "It always seems impossible until it's done.",
     "The road to success and the road to failure are almost exactly the same."
   ];
-  
+  // constants/data.js
+
+export const punctuationSentences = [
+  "Hello, world! How's it going?",
+  "I can't wait for the weekend!",
+  "This is a test: Do you understand?",
+  "How are you? Everything okay?",
+  "I hope everything is alright!"
+];
+
+export const quoteSentences = [
+  "The only way to do great work is to love what you do. - Steve Jobs",
+  "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
+  "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment. - Ralph Waldo Emerson",
+  "Don't watch the clock; do what it does. Keep going. - Sam Levenson",
+  "It always seems impossible until it's done. - Nelson Mandela"
+];
+export const easySentences = [
+  "The cat is on the mat.",
+  "It is a sunny day.",
+  "I like to read books."
+];
+
+export const mediumSentences = [
+  "The quick brown fox jumps over the lazy dog.",
+  "She sells seashells by the seashore.",
+  "How razorback-jumping frogs can level six piqued gymnasts!"
+];
+
+export const hardSentences = [
+  "Supercalifragilisticexpialidocious.",
+  "Pneumonoultramicroscopicsilicovolcanoconiosis.",
+  "The ghost of Christmas present is made of light and joy."
+];

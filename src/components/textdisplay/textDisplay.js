@@ -5,7 +5,7 @@ const TextDisplay = ({ text, typedText }) => {
         {text.split("").map((char, index) => (
           <span
             key={index}
-            className={typedText[index] === char ? 'correct' : (typedText[index] ? 'incorrect' : '')}
+            className={typedText[index] === char  ? 'correct' : (typedText[index] ? 'incorrect' : '')}
           >
             {char}
           </span>

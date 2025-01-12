@@ -3,8 +3,10 @@ import TextDisplay from './components/textdisplay/textDisplay';
 import TypingArea from './components/TypingArea/TypingArea';
 import Results from './components/result/results';
 import Timer from './components/timer/timer';
-import { sentences } from './constants/data';
-import "./App.css"
+import { punctuationSentences, quoteSentences, easySentences, mediumSentences, hardSentences } from './constants/data';
+import './App.css';
+import Navbar from './components/navbar';
+
 const App = () => {
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
   const [typedText, setTypedText] = useState("");
@@ -15,15 +17,16 @@ const App = () => {
   const [sentenceFinished, setSentenceFinished] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [theme, setTheme] = useState('light');
-
-  const currentSentence = sentences[currentSentenceIndex]; 
+  const [zenMode, setZenMode] = useState(false);
+  const [difficulty, setDifficulty] = useState('easy');
+  const [currentSentenceArray, setCurrentSentenceArray] = useState(easySentences);
+  const [fontStyle, setFontStyle] = useState('Arial');
+  const currentSentence = currentSentenceArray[currentSentenceIndex];
 
   useEffect(() => {
-    // Save the selected theme in localStorage so it persists between sessions
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  // Load the theme from localStorage on app load
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -52,7 +55,7 @@ const App = () => {
   };
 
   const handleCompleteTyping = () => {
-    handleStopTyping(); 
+    handleStopTyping();
     setIsCompleted(true);
     setSentenceFinished(true);
   };
@@ -60,7 +63,7 @@ const App = () => {
   const handleNextSentence = () => {
     setIsCompleted(false);
     setTypedText("");
-    setCurrentSentenceIndex((prevIndex) => (prevIndex + 1) % sentences.length);
+    setCurrentSentenceIndex((prevIndex) => (prevIndex + 1) % currentSentenceArray.length);
     setSentenceFinished(false);
   };
 
@@ -68,32 +71,97 @@ const App = () => {
     setShowPopup(false);
   };
 
-  // Toggle theme between light and dark
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
+  const handleDifficultyChange = (level) => {
+    setDifficulty(level);
+    if (level === 'easy') {
+      setCurrentSentenceArray(easySentences);
+    } else if (level === 'medium') {
+      setCurrentSentenceArray(mediumSentences);
+    } else if (level === 'hard') {
+      setCurrentSentenceArray(hardSentences);
+    }
+  };
+
+  const handlePunctuationClick = () => {
+    setCurrentSentenceArray(punctuationSentences);
+    setCurrentSentenceIndex(0);
+  };
+
+  const handleQuoteClick = () => {
+    setCurrentSentenceArray(quoteSentences); 
+    setCurrentSentenceIndex(0); 
+  };
+
+  const toggleZenMode = () => {
+    setZenMode((prev) => !prev);
+    setTypedText("");
+    setSentenceFinished(false);
+  };
+
+  const handleFontChange = (event) => {
+    setFontStyle(event.target.value);
+  };
+
   return (
-    <div className={`App ${theme}`}>
-      <h1>Typing Master</h1>
+    <div className={`App ${theme} ${zenMode ? 'zen-mode' : ''}`}>
+      <header className="header">
+        <h1>Typing Master</h1>
+        <Navbar 
+          onPunctuationClick={handlePunctuationClick} 
+          onQuoteClick={handleQuoteClick} 
+          onZenModeClick={toggleZenMode} 
+          zenMode={zenMode} 
+          toggleTheme={toggleTheme} 
+          theme={theme}
+          onDifficultyChange={handleDifficultyChange} // Pass the handler here
+          difficulty={difficulty} // Pass the current difficulty
+          onFontChange={handleFontChange}
+        />
+      </header>
 
-      <TextDisplay text={currentSentence} typedText={typedText} />
-
-      {!startTyping && !sentenceFinished && (
-        <button className="start-typing-btn" onClick={handleStartTyping}>Start Typing</button>
-      )}
-
-      {startTyping && (
-        <TypingArea text={currentSentence} onTyped={handleTypedText} onComplete={handleCompleteTyping} />
-      )}
-
-      {startTyping && <Timer start={startTyping} />}
-
-      {isCompleted && (
+      {zenMode ? (
         <div>
-          <Results wpm={wpm} accuracy={accuracy} />
-          <button onClick={handleNextSentence}>Next Sentence</button>
+          <TypingArea
+            text={typedText}
+            onTyped={handleTypedText}
+            onComplete={handleCompleteTyping}
+            fontStyle={fontStyle}
+          />
         </div>
+      ) : (
+        <>
+          <TextDisplay
+            text={currentSentence}
+            typedText={typedText}
+            fontStyle={fontStyle}
+          />
+
+          {!startTyping && !sentenceFinished && (
+            <button className="start-typing-btn" onClick={handleStartTyping}>Start Typing</button>
+          )}
+
+          {startTyping && (
+            <TypingArea
+              text={currentSentence}
+              onTyped={handleTypedText}
+              onComplete={handleCompleteTyping}
+              fontStyle={fontStyle}
+            />
+          )}
+
+          {startTyping && <Timer start={startTyping} />}
+
+          {isCompleted && (
+            <div>
+              <Results wpm={wpm} accuracy={accuracy} />
+              <button onClick={handleNextSentence}>Next Sentence</button>
+            </div>
+          )}
+        </>
       )}
 
       {showPopup && (
@@ -106,11 +174,6 @@ const App = () => {
           </div>
         </div>
       )}
-
-      {/* Theme Toggle Button */}
-      <button className="theme-toggle-btn" onClick={toggleTheme}>
-        {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-      </button>
     </div>
   );
 };
